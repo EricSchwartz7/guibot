@@ -18,11 +18,11 @@ post '/gateway' do
     when 'issues'
       resp = HTTParty.get(repo_url)
       resp = JSON.parse resp.body
-      respond_message "There are #{resp['open_issues_count']} open issues on #{repo}." 
+      respond_message "There are #{resp['open_issues_count']} open issues on #{repo}."
     when 'forks'
       respond_message "There are #{resp['forks']} forks on #{repo}."
     else
-      respond_message "Say 'issues', ya moron!"
+      respond_message "Say 'issues' or 'forks', ya moron!"
     end
   end
 
