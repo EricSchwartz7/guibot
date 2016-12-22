@@ -15,9 +15,9 @@ post '/gateway' do
   repo_url = "https://api.github.com/repos/#{repo}"
 
   case action
-    when 'issues'
       resp = HTTParty.get(repo_url)
       resp = JSON.parse resp.body
+    when 'issues'
       respond_message "There are #{resp['open_issues_count']} open issues on #{repo}."
     when 'forks'
       respond_message "There are #{resp['forks']} forks on #{repo}."
