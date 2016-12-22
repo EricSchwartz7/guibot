@@ -4,4 +4,4 @@ gem 'sinatra'
 gem 'rack'
 gem 'httparty'
 
-gem ruby '2.3.0'
+gem ruby '2.2.6'
