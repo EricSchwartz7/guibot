@@ -14,12 +14,17 @@ post '/gateway' do
   action, repo = message.split('_').map {|c| c.strip.downcase }
   repo_url = "https://api.github.com/repos/#{repo}"
 
+  def establish_link
+    resp = HTTParty.get(repo_url)
+    resp = JSON.parse resp.body
+  end
+
   case action
-      resp = HTTParty.get(repo_url)
-      resp = JSON.parse resp.body
     when 'issues'
+      establish_link
       respond_message "There are #{resp['open_issues_count']} open issues on #{repo}."
     when 'forks'
+      establish_link
       respond_message "There are #{resp['forks']} forks on #{repo}."
     else
       respond_message "Say 'issues' or 'forks', ya moron!"
