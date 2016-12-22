@@ -3,6 +3,10 @@ require 'httparty'
 require 'json'
 
 
+get '/' do
+  erb :show
+end
+
 ## Receive post at '/gateway' and send to repo_url
 post '/gateway' do
   message = params[:text].gsub(params[:trigger_word], '').strip
@@ -15,8 +19,8 @@ post '/gateway' do
       resp = HTTParty.get(repo_url)
       resp = JSON.parse resp.body
       respond_message "There are #{resp['open_issues_count']} open issues on #{repo}"
+    end
   end
-end
 
 def respond_message message
   content_type :json
