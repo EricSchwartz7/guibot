@@ -7,6 +7,11 @@ get '/' do
   erb :show
 end
 
+def resp
+  resp = HTTParty.get(repo_url)
+  resp = JSON.parse resp.body
+end
+
 ## Receive post at '/gateway' and send to repo_url
 post '/gateway' do
   message = params[:text].gsub(params[:trigger_word], '').strip
@@ -14,10 +19,6 @@ post '/gateway' do
   action, repo = message.split('_').map {|c| c.strip.downcase }
   repo_url = "https://api.github.com/repos/#{repo}"
 
-  def resp
-    resp = HTTParty.get(repo_url)
-    resp = JSON.parse resp.body
-  end
 
   case action
     when 'issues'
