@@ -7,11 +7,6 @@ get '/' do
   erb :show
 end
 
-def resp
-  resp = HTTParty.get(repo_url)
-  resp = JSON.parse resp.body
-end
-
 ## Receive post at '/gateway' and send to repo_url
 post '/gateway' do
   message = params[:text].gsub(params[:trigger_word], '').strip
@@ -22,10 +17,12 @@ post '/gateway' do
 
   case action
     when 'issues'
-      resp
+      resp = HTTParty.get(repo_url)
+      resp = JSON.parse resp.body
       respond_message "There are #{resp['open_issues_count']} open issues on #{repo}."
     when 'forks'
-      resp
+      resp = HTTParty.get(repo_url)
+      resp = JSON.parse resp.body
       respond_message "There are #{resp['forks']} forks on #{repo}."
     else
       respond_message "Say 'issues' or 'forks', ya moron!"
