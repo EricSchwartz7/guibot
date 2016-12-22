@@ -19,6 +19,8 @@ post '/gateway' do
       resp = HTTParty.get(repo_url)
       resp = JSON.parse resp.body
       respond_message "There are #{resp['open_issues_count']} open issues on #{repo}"
+    else
+      respond_message "Say 'issues', ya moron!"
     end
   end
 
