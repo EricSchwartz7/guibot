@@ -24,6 +24,9 @@ post '/gateway' do
       resp = HTTParty.get(repo_url)
       resp = JSON.parse resp.body
       respond_message "There are #{resp['forks']} forks on #{repo}."
+    when 'fire'
+      fire_text = 100.times do ":fire:"
+      respond_message "#{fire_text}"
     else
       respond_message "Say 'issues' or 'forks', ya moron!"
     end
