@@ -31,7 +31,7 @@ post '/gateway' do
     when 'fire'
       respond_message ":fire:" * 100
     when "Say 'issues' or 'forks', ya moron!"
-      return
+      return false
     else
       respond_message "Say 'issues' or 'forks', ya moron!"
     end
