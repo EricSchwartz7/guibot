@@ -25,9 +25,9 @@ post '/gateway' do
       resp = JSON.parse resp.body
       respond_message "There are #{resp['forks']} forks on #{repo}."
     when 'fire'
-      fire_text = 100.times do ":fire:"
-      end
-      respond_message "#{fire_text}"
+      fire_text = []
+      100.times { fire_text << ":fire:" }
+      respond_message "#{fire_text.join}"
     else
       respond_message "Say 'issues' or 'forks', ya moron!"
     end
