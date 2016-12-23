@@ -30,6 +30,8 @@ post '/gateway' do
       respond_message "There are #{resp['forks']} forks on #{repo}."
     when 'fire'
       respond_message ":fire:" * 100
+    when "Say 'issues' or 'forks', ya moron!"
+      respond_message ""
     else
       respond_message "Say 'issues' or 'forks', ya moron!"
     end
