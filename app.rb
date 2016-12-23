@@ -28,6 +28,10 @@ post '/gateway' do
       fire_text = []
       100.times { fire_text << ":fire:" }
       respond_message "#{fire_text.join}"
+    when 'FIRE'
+      fire_text = []
+      10000.times { fire_text << ":fire:" }
+      respond_message "#{fire_text.join}"
     else
       respond_message "Say 'issues' or 'forks', ya moron!"
     end
