@@ -26,6 +26,7 @@ post '/gateway' do
       respond_message "There are #{resp['forks']} forks on #{repo}."
     when 'fire'
       fire_text = 100.times do ":fire:"
+      end
       respond_message "#{fire_text}"
     else
       respond_message "Say 'issues' or 'forks', ya moron!"
