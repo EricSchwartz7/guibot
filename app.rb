@@ -29,9 +29,7 @@ post '/gateway' do
       resp = get_resp(repo_url)
       respond_message "There are #{resp['forks']} forks on #{repo}."
     when 'fire'
-      fire_text = []
-      100.times { fire_text << ":fire:" }
-      respond_message "#{fire_text.join}"
+      respond_message ":fire:" * 100
     else
       respond_message "Say 'issues' or 'forks', ya moron!"
     end
