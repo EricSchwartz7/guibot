@@ -32,7 +32,6 @@ post '/gateway' do
       respond_message "There are #{resp['forks']} forks on #{repo}."
     when 'fire'
       respond_message ":fire:" * 100
-
     # This was not firing because the input is being downcased and we were checking for
     # a string that had the first letter capitalized
     when "say 'issues' or 'forks', ya moron!"
