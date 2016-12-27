@@ -44,7 +44,7 @@ post '/gateway' do
         get_resp("#{char}")['name']
       end.join("\n")
       # binding.pry
-      respond_message "There are #{resp['swornMembers'].count} members in #{resp['name']}. Their names are as follows: #{names}"
+      respond_message "There are #{resp['swornMembers'].count} members in #{resp['name']}. Their names are as follows:\n#{names}"
 
     # This was not firing because the input is being downcased and we were checking for
     # a string that had the first letter capitalized
