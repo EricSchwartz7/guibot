@@ -38,7 +38,6 @@ post '/gateway' do
     when 'got'
       resp = get_resp(got_url)
       respond_message "#{resp['name']}"
-
     # This was not firing because the input is being downcased and we were checking for
     # a string that had the first letter capitalized
     when "say 'issues' or 'forks', ya moron!"
