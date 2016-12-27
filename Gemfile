@@ -1,5 +1,6 @@
 source 'https://rubygems.org'
 
+gem 'rack', '<2.0'
 gem 'sinatra'
-gem 'rack'
 gem 'httparty'
+gem 'pry'
