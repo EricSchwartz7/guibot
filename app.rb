@@ -40,10 +40,11 @@ post '/gateway' do
       respond_message "#{resp['name']}"
     # This was not firing because the input is being downcased and we were checking for
     # a string that had the first letter capitalized
-    when "say 'issues' or 'forks', ya moron!"
-      respond_message " "
-    else
-      respond_message "Say 'issues' or 'forks', ya moron!"
+    
+    # when "say 'issues' or 'forks', ya moron!"
+    #   respond_message " "
+    # else
+    #   respond_message "Say 'issues' or 'forks', ya moron!"
 
     end
   end
