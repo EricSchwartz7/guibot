@@ -1,6 +1,7 @@
 require 'sinatra'
 require 'httparty'
 require 'json'
+require 'pry'
 
 
 get '/' do
@@ -19,8 +20,10 @@ post '/gateway' do
   # .gsub(params[:trigger_word], '').strip
 
   # We could also use a space instead of an underscore, and it works fine
+
   action, repo = message.split(' ').map {|c| c.strip.downcase }
   repo_url = "https://api.github.com/repos/#{repo}"
+  got_url = "http://www.anapioficeandfire.com/api/characters/#{repo}"
 
   case action
 
@@ -32,12 +35,18 @@ post '/gateway' do
       respond_message "There are #{resp['forks']} forks on #{repo}."
     when 'fire'
       respond_message ":fire:" * 100
+    when 'got'
+      resp = get_resp(got_url)
+      respond_message "#{resp['name']}"
+    else
+
     # This was not firing because the input is being downcased and we were checking for
     # a string that had the first letter capitalized
     when "say 'issues' or 'forks', ya moron!"
       respond_message " "
     else
       respond_message "Say 'issues' or 'forks', ya moron!"
+
     end
   end
 
