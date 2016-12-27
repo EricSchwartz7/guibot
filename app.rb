@@ -12,16 +12,18 @@ def get_resp(repo_url)
   JSON.parse resp.body
 end
 
+
 ## Receive post at '/gateway' and send to repo_url
 post '/gateway' do
   message = params[:text]
   # .gsub(params[:trigger_word], '').strip
 
-  action, repo = message.split('_').map {|c| c.strip.downcase }
+  # We could also use a space instead of an underscore, and it works fine
+  action, repo = message.split(' ').map {|c| c.strip.downcase }
   repo_url = "https://api.github.com/repos/#{repo}"
 
-
   case action
+
     when 'issues'
       resp = get_resp(repo_url)
       respond_message "There are #{resp['open_issues_count']} open issues on #{repo}."
@@ -30,10 +32,12 @@ post '/gateway' do
       respond_message "There are #{resp['forks']} forks on #{repo}."
     when 'fire'
       respond_message ":fire:" * 100
-    # when "Say 'issues' or 'forks', ya moron!"
-    #   return false
-    # else
-    #   respond_message "Say 'issues' or 'forks', ya moron!"
+    # This was not firing because the input is being downcased and we were checking for
+    # a string that had the first letter capitalized
+    when "say 'issues' or 'forks', ya moron!"
+      respond_message " "
+    else
+      respond_message "Say 'issues' or 'forks', ya moron!"
     end
   end
 
