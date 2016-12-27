@@ -21,26 +21,33 @@ post '/gateway' do
 
   # We could also use a space instead of an underscore, and it works fine
 
+  got_url = "http://www.anapioficeandfire.com/api/"
   action, repo = message.split(' ').map {|c| c.strip.downcase }
   repo_url = "https://api.github.com/repos/#{repo}"
-  got_url = "http://www.anapioficeandfire.com/api/characters/#{repo}"
+  resp = get_resp(repo_url)
+
 
   case action
 
     when 'issues'
-      resp = get_resp(repo_url)
       respond_message "There are #{resp['open_issues_count']} open issues on #{repo}."
     when 'forks'
-      resp = get_resp(repo_url)
       respond_message "There are #{resp['forks']} forks on #{repo}."
     when 'fire'
       respond_message ":fire:" * 100
-    when 'got'
-      resp = get_resp(got_url)
+    when 'charbynum'
+      resp = get_resp("#{got_url}characters/#{repo}")
       respond_message "#{resp['name']}"
+    when 'house'
+      resp = get_resp("#{got_url}houses/#{repo}")
+      names = resp['swornMembers'].collect do |char|
+        get_resp("#{char}")['name']
+      end.join("\n")
+      # binding.pry
+      respond_message "There are #{resp['swornMembers'].count} members in #{resp['name']}. Their names are as follows: #{names}"
+
     # This was not firing because the input is being downcased and we were checking for
     # a string that had the first letter capitalized
-    
     # when "say 'issues' or 'forks', ya moron!"
     #   respond_message " "
     # else
